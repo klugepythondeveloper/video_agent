@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebSocket Test</title>
+</head>
+<body>
+  <h1>WebSocket Test</h1>
+  <button onclick="sendMessage()">Send message</button>
+
+  <pre id="log"></pre>
+
+  <script>
+    const log = document.getElementById("log");
+
+    const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+
+    ws.onopen = () => {
+      log.textContent += "Connected to backend\n";
+    };
+
+    ws.onmessage = (event) => {
+      log.textContent += "FROM BACKEND: " + event.data + "\n";
+    };
+
+    function sendMessage() {
+      ws.send("Hello backend");
+    }
+  </script>
+</body>
+</html>
